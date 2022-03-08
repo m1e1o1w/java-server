@@ -3,7 +3,7 @@ package org.echocat.kata.java.part1;
 import org.echocat.kata.java.part1.config.Configuration;
 import org.echocat.kata.java.part1.config.ConfigurationManager;
 import org.echocat.kata.java.part1.core.ServerListerThread;
-import org.echocat.kata.java.part1.service.AuthorService;
+import org.echocat.kata.java.part1.client.AuthorClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,7 +28,7 @@ public class MainApp {
         }
 
         HttpClient httpClient = HttpClient.newHttpClient();
-        AuthorService authorService = new AuthorService(httpClient);
+        AuthorClient authorService = new AuthorClient(httpClient);
         authorService.printAuthors();
     }
 }

@@ -1,4 +1,4 @@
-package org.echocat.kata.java.part1.service;
+package org.echocat.kata.java.part1.client;
 
 import org.echocat.kata.java.part1.http.JsonBodyHandler;
 import org.echocat.kata.java.part1.http.Request;
@@ -9,11 +9,11 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.util.List;
 
-public class AuthorService {
+public class AuthorClient {
     private final static URI authorsUri = URI.create("https://jsonplaceholder.typicode.com/albums");
 
     private final HttpClient httpClient;
-    public AuthorService(HttpClient httpClient) {
+    public AuthorClient(HttpClient httpClient) {
         this.httpClient = httpClient;
     }
 
