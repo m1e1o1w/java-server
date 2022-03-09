@@ -6,12 +6,15 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ServerListerThread extends Thread {
     private final static Logger LOGGER = LoggerFactory.getLogger(ServerListerThread.class);
     private final int port;
     private final ServerSocket serverSocket;
 
+    private static ExecutorService executorService = Executors.newFixedThreadPool(10);
     public ServerListerThread(int port) throws IOException {
         this.port = port;
         this.serverSocket = new ServerSocket(this.port);
@@ -22,10 +25,9 @@ public class ServerListerThread extends Thread {
         try {
             while (serverSocket.isBound() && !serverSocket.isClosed()) {
                 Socket socket = serverSocket.accept();
-
                 LOGGER.info("Connection accepted");
                 HttpServerListenerThread httpServerListenerThread = new HttpServerListenerThread(socket);
-                httpServerListenerThread.start();
+                executorService.execute(httpServerListenerThread);
             }
         } catch (IOException e) {
             e.printStackTrace();

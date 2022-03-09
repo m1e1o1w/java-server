@@ -19,11 +19,9 @@ public class HttpServerListenerThread extends Thread {
 
     @Override
     public void run() {
-
         try (InputStream inputStream = socket.getInputStream();
              OutputStream outputStream = socket.getOutputStream()) {
 
-            System.out.print(new String(inputStream.readAllBytes()));
             String response = "<html>\n" +
                     "  <head>\n" +
                     "    <title>Href Attribute Example</title>\n" +
@@ -41,12 +39,11 @@ public class HttpServerListenerThread extends Thread {
 
 
             try {
-                sleep(2000);
+                sleep(5000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            LOGGER.info("Writing response");
-
+            LOGGER.info("Wrote response");
         } catch (IOException e) {
             LOGGER.error("Problem with connection");
         } finally {
