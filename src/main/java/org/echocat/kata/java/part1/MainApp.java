@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.net.ServerSocket;
 import java.net.http.HttpClient;
 
 public class MainApp {
@@ -21,7 +22,8 @@ public class MainApp {
         Configuration configuration = configurationManager.getConfiguration();
 
         try {
-            ServerListerThread serverListerThread = new ServerListerThread(configuration.getPort());
+            ServerSocket serverSocket = new ServerSocket((configuration.getPort()));
+            ServerListerThread serverListerThread = new ServerListerThread(configuration.getPort(),serverSocket);
             serverListerThread.start();
         } catch (IOException e) {
             e.printStackTrace();

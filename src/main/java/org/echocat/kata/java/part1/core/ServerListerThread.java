@@ -15,9 +15,9 @@ public class ServerListerThread extends Thread {
     private final ServerSocket serverSocket;
 
     private static ExecutorService executorService = Executors.newFixedThreadPool(10);
-    public ServerListerThread(int port) throws IOException {
+    public ServerListerThread(int port, ServerSocket serverSocket) throws IOException {
         this.port = port;
-        this.serverSocket = new ServerSocket(this.port);
+        this.serverSocket = serverSocket;
     }
 
     @Override
