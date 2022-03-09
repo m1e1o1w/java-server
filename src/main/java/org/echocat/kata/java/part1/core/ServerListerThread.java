@@ -11,12 +11,10 @@ import java.util.concurrent.Executors;
 
 public class ServerListerThread extends Thread {
     private final static Logger LOGGER = LoggerFactory.getLogger(ServerListerThread.class);
-    private final int port;
     private final ServerSocket serverSocket;
 
     private static ExecutorService executorService = Executors.newFixedThreadPool(10);
-    public ServerListerThread(int port, ServerSocket serverSocket) throws IOException {
-        this.port = port;
+    public ServerListerThread(ServerSocket serverSocket) throws IOException {
         this.serverSocket = serverSocket;
     }
 
@@ -31,14 +29,6 @@ public class ServerListerThread extends Thread {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
-            if(serverSocket!=null){
-                try {
-                    serverSocket.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 }

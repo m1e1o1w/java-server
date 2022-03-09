@@ -21,7 +21,6 @@ public class HttpServerListenerThread extends Thread {
     public void run() {
         try (InputStream inputStream = socket.getInputStream();
              OutputStream outputStream = socket.getOutputStream()) {
-
             String response = "<html>\n" +
                     "  <head>\n" +
                     "    <title>Href Attribute Example</title>\n" +
@@ -31,18 +30,19 @@ public class HttpServerListenerThread extends Thread {
                     "  </body>\n" +
                     "</html>";
             final String CRFL = "\f\n";
-            String response1 = "HTTP/1.1 200 OK" + CRFL +
-                    "Content-Length: " + response.getBytes().length + CRFL
-                    + CRFL
-                    + response + CRFL + CRFL;
-            outputStream.write(response1.getBytes(StandardCharsets.UTF_8));
-
+            String response1 = "HTTP/1.1 200 OK" + CRFL;
+//                    "Content-Length: " + response.getBytes().length + CRFL
+//                    + CRFL
+//                    + response + CRFL + CRFL;
 
             try {
                 sleep(5000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
+            outputStream.write(response1.getBytes());
+            outputStream.close();
             LOGGER.info("Wrote response");
         } catch (IOException e) {
             LOGGER.error("Problem with connection");
